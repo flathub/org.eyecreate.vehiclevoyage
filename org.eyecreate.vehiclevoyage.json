@@ -7,7 +7,7 @@
   "finish-args": [
     "--share=ipc",
     "--share=network",
-    "--socket=x11",
+    "--socket=fallback-x11",
     "--socket=wayland",
     "--device=dri",
     "--talk-name=org.freedesktop.Notifications"
@@ -24,8 +24,8 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://git.eyecreate.org/eyecreate/vehicle-voyage.git",
-          "commit": "53c23bff890b97ddf010f778ebd53154b67d74e6"
+          "url": "https://codeberg.org/SFaulken/vehicle-voyage.git",
+          "commit": "ccfc3f8a47c39b02fbb55ca6b6033b836bb56f09"
         },
         {
           "type": "patch",
