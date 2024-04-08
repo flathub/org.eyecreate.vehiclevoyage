@@ -1,0 +1,116 @@
+From 12f9400c439b949680e01c7ea71a0f5ab7d6b14a Mon Sep 17 00:00:00 2001
+From: "Shawn W. Dunn" <sfalken@cloverleaf-linux.org>
+Date: Sat, 6 Apr 2024 11:31:30 -0700
+Subject: [PATCH] Update to build against 5.15-23.08 KDE Runtime
+
+Update CMakeLists.txt
+Moved cmake_minimum_required() and updated the version, to clear
+warnings at build time.
+Added Concurrent to find_package(Qt5 ) Build fails without it
+
+Add <launchable> tag to appdata.xml
+
+Per https://docs.flathub.org/docs/for-app-authors/metainfo-guidelines/#launchable
+
+Update developer tag for linting checks
+
+Fixed screenshot block formatting for linting checks
+
+Formatting fix to conform with Flathub Best Practices
+
+Added suffix to Icon declaration in .desktop
+
+Revert "Added suffix to Icon declaration in .desktop"
+
+This reverts commit c9315688d57e056795882fe214240c12b57de6d7.
+
+Update Icon install location
+
+Flatpak current specification requires icons to be installed to
+DATAROOTDIR/icons/hicolor/scalable/apps
+
+Fix formatting error
+---
+ CMakeLists.txt                                 |  6 +++---
+ .../org.eyecreate.vehiclevoyage.appdata.xml    | 18 ++++++++++--------
+ 2 files changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c18b667..5b8c1e7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
++cmake_minimum_required(VERSION 3.5.0)
+ project(vehiclevoyage)
+ 
+-cmake_minimum_required(VERSION 2.8.12)
+ set(KF5_MIN_VERSION "5.70.0")
+ set(QT_MIN_VERSION "5.14.0")
+ 
+@@ -28,7 +28,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
+ 
+ ################# Find dependencies #################
+ 
+-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Test Gui Sql Svg QuickControls2 Widgets)
++find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Concurrent Quick Test Gui Sql Svg QuickControls2 Widgets)
+ find_package(KF5Kirigami2 ${KF5_MIN_VERSION} REQUIRED)
+ find_package(KF5CoreAddons ${KF5_MIN_VERSION} REQUIRED)
+ 
+@@ -40,7 +40,7 @@ set(CMAKE_CXX_STANDARD 11)
+ add_subdirectory(src)
+ 
+ install(PROGRAMS packaging/org.eyecreate.vehiclevoyage.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+-install(FILES packaging/org.eyecreate.vehiclevoyage.svg DESTINATION ${KDE_INSTALL_ICONDIR})
++install(FILES packaging/org.eyecreate.vehiclevoyage.svg DESTINATION ${KDE_INSTALL_ICONDIR}/hicolor/scalable/apps)
+ install(FILES packaging/org.eyecreate.vehiclevoyage.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+ 
+ feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
+diff --git a/packaging/org.eyecreate.vehiclevoyage.appdata.xml b/packaging/org.eyecreate.vehiclevoyage.appdata.xml
+index 7917e0f..a3a32fc 100644
+--- a/packaging/org.eyecreate.vehiclevoyage.appdata.xml
++++ b/packaging/org.eyecreate.vehiclevoyage.appdata.xml
+@@ -1,22 +1,28 @@
+ <?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright [2024] [Kevin Whitaker] -->
+ <component type="desktop-application">
+   <id>org.eyecreate.vehiclevoyage</id>
+   <name>Vehicle Voyage</name>
+-  <summary>Track vehicle service history.</summary>
++  <summary>Track vehicle service history</summary>
+   <metadata_license>FSFAP</metadata_license>
+   <project_license>GPL-3.0-or-later</project_license>
+   <content_rating type="oars-1.1" />
+   <url type="homepage">https://git.eyecreate.org/eyecreate/vehicle-voyage</url>
+   <url type="contact">https://www.eyecreate.org</url>
+   <url type="donation">https://liberapay.com/eyecreate/donate</url>
+-  <developer_name>eyecreate</developer_name>
++  <launchable type="desktop-id">org.eyecreate.vehiclevoyage.desktop</launchable>
++  <developer id="org.eyecreate">
++    <name>eyecreate</name>
++  </developer>
+   <description>
+     <p>Track vehicle service history.</p>
+   </description>
+   <screenshots>
+       <screenshot type="default">
+-          <image type="source">https://git.eyecreate.org/eyecreate/vehicle-voyage/raw/v1.0/packaging/main_window.png</image>
+-          <image type="source">https://git.eyecreate.org/eyecreate/vehicle-voyage/raw/v1.0/packaging/mobile_window.png</image>
++          <image >https://git.eyecreate.org/eyecreate/vehicle-voyage/raw/v1.0/packaging/main_window.png</image>
++      </screenshot>
++      <screenshot>
++          <image >https://git.eyecreate.org/eyecreate/vehicle-voyage/raw/v1.0/packaging/mobile_window.png</image>
+       </screenshot>
+   </screenshots>
+   <releases>
+@@ -31,8 +37,4 @@
+       </release>
+       <release version="1.0" date="2020-7-19" type="stable"/>
+   </releases>
+-  <custom>
+-      <value key="Purism::form_factor">workstation</value>
+-      <value key="Purism::form_factor">mobile</value>
+-  </custom>
+ </component>
+-- 
+2.44.0
+

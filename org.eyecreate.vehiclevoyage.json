@@ -24,12 +24,14 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://codeberg.org/SFaulken/vehicle-voyage.git",
-          "commit": "ccfc3f8a47c39b02fbb55ca6b6033b836bb56f09"
+          "url": "https://git.eyecreate.org/eyecreate/vehicle-voyage.git",
+          "commit": "53c23bff890b97ddf010f778ebd53154b67d74e6"
         },
         {
           "type": "patch",
-          "path": "icon-theme-patch.diff"
+          "path": "patches/icon-theme-patch.diff",
+          "type": "patch",
+          "path": "patches/Update-to-build-against-5.15-23.08-KDE-Runtime.patch"
         }
       ]
     }
