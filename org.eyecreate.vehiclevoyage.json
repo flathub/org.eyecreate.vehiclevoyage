@@ -2,15 +2,14 @@
   "id": "org.eyecreate.vehiclevoyage",
   "runtime": "org.kde.Platform",
   "command": "vehiclevoyage",
-  "runtime-version": "5.14",
+  "runtime-version": "5.15-23.08",
   "sdk": "org.kde.Sdk",
   "finish-args": [
     "--share=ipc",
     "--share=network",
-    "--socket=x11",
+    "--socket=fallback-x11",
     "--socket=wayland",
     "--device=dri",
-    "--filesystem=xdg-data",
     "--talk-name=org.freedesktop.Notifications"
   ],
   "separate-locales": false,
@@ -26,7 +25,7 @@
         {
           "type": "git",
           "url": "https://git.eyecreate.org/eyecreate/vehicle-voyage.git",
-          "commit": "53c23bff890b97ddf010f778ebd53154b67d74e6"
+          "commit": "f8082a35c143c29dc309ae4a7e908645841c27fb"
         },
         {
           "type": "patch",
